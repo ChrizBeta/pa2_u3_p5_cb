@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,33 +24,38 @@ public class Pa2U3P5CbApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Factura fact = new Factura();
-		fact.setCedula("1722781000");
-		fact.setFecha(LocalDate.now());
-		fact.setNumero("0001-022-1022");
 		
-		DetalleFactura det1 = new DetalleFactura();
-		det1.setCantidad(4);
-		det1.setCodigoBarras("123456");
-		det1.setFactura(fact);
-		det1.setNombreProducto("CocaCola");
+		System.out.println("\n__________________________________________________ INNER JOIN __________________________________________________ ");
 		
-		DetalleFactura det2 = new DetalleFactura();
-		det2.setCantidad(2);
-		det2.setCodigoBarras("875421");
-		det2.setFactura(fact);
-		det2.setNombreProducto("Leche Vita");
+		List <Factura> lista = this.facturaService.buscarInnerJoin();
+		for (Factura f: lista) {
+			System.out.println(f);
+		}
 		
-		List<DetalleFactura> lista = new ArrayList<>();
-		lista.add(det1);
-		lista.add(det2);
+		System.out.println("\n__________________________________________________ RIGHT JOIN __________________________________________________ ");
+		List <Factura> lista1= this.facturaService.buscarRightJoin();
+		for (Factura f: lista1) {
+			System.out.println(f);
+		}
 		
-		fact.setDetalleFacturas(lista);
+		System.out.println("\n__________________________________________________ LEFT JOIN __________________________________________________ ");
+		List <Factura> lista2= this.facturaService.buscarLeftJoin();
+		for (Factura f: lista2) {
+			System.out.println(f);
+		}
 		
-		//this.facturaService.guardar(fact);
+		System.out.println("\n__________________________________________________ FULL JOIN __________________________________________________ ");
+		List <Factura> lista3= this.facturaService.buscarLeftJoin();
+		for (Factura f: lista3) {
+			System.out.println(f);
+			for(DetalleFactura d: f.getDetalleFacturas()) {
+				System.out.println(d);
+			}
+		}
 		
-		Factura fac = this.facturaService.buscarPorNumero("0001-022-1022");
-		System.out.println(fac);
+		
+		
+		
 	}
 
 }
