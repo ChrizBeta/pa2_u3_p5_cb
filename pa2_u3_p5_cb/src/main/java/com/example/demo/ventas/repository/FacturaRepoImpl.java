@@ -92,4 +92,31 @@ public class FacturaRepoImpl implements IFacturaRepo {
 		return lista;
 	}
 
+	@Override
+	public List<Factura> seleccionarWhereJoin() {
+		
+		// JPQL: SELECT f FROM Factura f, DetalleFactura d WHERE f.id = d.factura.id 
+		
+		TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f FROM Factura f, DetalleFactura d WHERE f = d.factura", Factura.class);
+		
+		List<Factura> lista = myQuery.getResultList();
+		for (Factura f : lista) {
+			f.getDetalleFacturas().size();
+		}
+	
+		
+		return lista;
+	}
+
+	@Override
+	public List<Factura> seleccionarFetchJoin() {
+		
+		//JPQL: SELECT f FROM Factura f JOIN FETCH f.detalleFactura d
+		
+		TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f FROM Factura f JOIN FETCH f.detalleFacturas d",Factura.class);
+		
+		
+		return myQuery.getResultList();
+	}
+
 }

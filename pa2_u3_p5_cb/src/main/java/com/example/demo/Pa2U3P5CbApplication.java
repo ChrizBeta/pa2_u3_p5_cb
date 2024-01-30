@@ -7,8 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.demo.ventas.repository.modelo.Habitacion;
-import com.example.demo.ventas.repository.modelo.Hotel;
+import com.example.demo.ventas.repository.modelo.Factura;
 import com.example.demo.ventas.service.IFacturaService;
 import com.example.demo.ventas.service.IHabitacionService;
 import com.example.demo.ventas.service.IHotelService;
@@ -33,32 +32,32 @@ public class Pa2U3P5CbApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		System.out.println(
+				"\n__________________________________________________ WHERE JOIN __________________________________________________ ");
+
+		List<Factura> lista = this.facturaService.buscarWhereJoin();
+		for (Factura f : lista) {
+			System.out.println(f);
+		}
+		
+		
+		System.out.println(
 				"\n__________________________________________________ INNER JOIN __________________________________________________ ");
-		List<Hotel> lista = this.hotelService.buscarInnerJoin("A1");
-		for (Hotel h : lista) {
-			System.out.println(h);
+
+		List<Factura> lista2 = this.facturaService.buscarInnerJoin();
+
+		for (Factura f : lista2) {
+			System.out.println(f.getNumero());
+		}
+		
+		System.out.println(
+				"\n__________________________________________________ FETCH JOIN __________________________________________________ ");
+		
+		List<Factura> lista3 = this.facturaService.buscarFetchJoin();
+
+		for (Factura f : lista3) {
+			System.out.println(f.getNumero());
 		}
 
-		System.out.println(
-				"\n__________________________________________________ RIGHT JOIN __________________________________________________ ");
-		List<Hotel> lista1 = this.hotelService.buscarRightJoin("Economica");
-		for (Hotel h : lista1) {
-			System.out.println(h);
-		}
-
-		System.out.println(
-				"\n__________________________________________________ LEFT JOIN __________________________________________________ ");
-		List<Habitacion> lista2 = this.habitacionService.buscarLeftJoin("Hilton Colon");
-		for (Habitacion ha : lista2) {
-			System.out.println(ha);
-		}
-
-		System.out.println(
-				"\n__________________________________________________ FULL JOIN __________________________________________________ ");
-		List<Habitacion> lista3 = this.habitacionService.buscarFullJoin("Av. Colon");
-		for (Habitacion ha : lista3) {
-			System.out.println(ha);
-		}
 
 	}
 
