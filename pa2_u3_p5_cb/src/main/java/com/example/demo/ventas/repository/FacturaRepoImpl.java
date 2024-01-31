@@ -1,13 +1,16 @@
 package com.example.demo.ventas.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.ventas.repository.modelo.Factura;
+import com.example.demo.ventas.repository.modelo.dto.FacturaDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
@@ -118,5 +121,58 @@ public class FacturaRepoImpl implements IFacturaRepo {
 		
 		return myQuery.getResultList();
 	}
+
+	
+	
+	@Override
+	public void actualizar(Factura factura) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(factura);
+		
+	}
+
+	@Override
+	public int actualizarFechas(LocalDate fechaNueva, LocalDate fechaActual) {
+		// TODO Auto-generated method stub
+		
+		Query myQuery = this.entityManager.createQuery("UPDATE Factura f SET f.fecha = :fechaNueva WHERE f.fecha >= :fechaActual");
+		myQuery.setParameter("fechaNueva", fechaNueva);
+		myQuery.setParameter("fechaActual", fechaActual);		
+		return myQuery.executeUpdate();		
+	}
+	
+	public Factura seleccionar (Integer id) {	
+		return this.entityManager.find(Factura.class, id);
+	}
+
+	@Override
+	public void eliminar(Integer id) {		
+		Factura fact = this.seleccionar(id);
+		this.entityManager.remove(fact);
+		
+	}
+
+	@Override
+	public int eliminarPorNumero(String numero) {
+		
+		//DELETE FROM Factura f WHERE f.numero = :numero  
+		// TODO Auto-generated method stub
+		
+		Query myQuery = this.entityManager.createQuery("DELETE FROM Factura f WHERE f.numero = :numero ");
+		myQuery.setParameter("numero", numero);
+		return myQuery.executeUpdate();
+		
+	}
+
+	@Override
+	public List<FacturaDTO> seleccionarFacturasDTO() {
+		// TODO Auto-generated method stub
+		TypedQuery<FacturaDTO> myQuery = this.entityManager.createQuery("SELECT NEW com.example.demo.ventas.repository.modelo.dto.FacturaDTO(f.numero, f.fecha) FROM Factura f",FacturaDTO.class);
+		
+		
+		return myQuery.getResultList();
+	}
+	
+	
 
 }

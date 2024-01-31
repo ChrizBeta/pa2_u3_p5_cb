@@ -1,5 +1,6 @@
 package com.example.demo.ventas.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.ventas.repository.IFacturaRepo;
 import com.example.demo.ventas.repository.modelo.Factura;
+import com.example.demo.ventas.repository.modelo.dto.FacturaDTO;
 
 @Service
 public class FacturaServiceImpl implements IFacturaService{
@@ -60,6 +62,38 @@ public class FacturaServiceImpl implements IFacturaService{
 	public List<Factura> buscarFetchJoin() {
 		// TODO Auto-generated method stub
 		return this.facturaRepo.seleccionarFetchJoin();
+	}
+
+	@Override
+	public void modificar(Factura factura) {
+		// TODO Auto-generated method stub
+		this.facturaRepo.actualizar(factura);
+		
+	}
+
+	@Override
+	public int modificarFechas(LocalDate fechaNueva, LocalDate fechaActual) {
+		// TODO Auto-generated method stub
+		return this.facturaRepo.actualizarFechas(fechaNueva, fechaActual);
+	}
+
+	@Override
+	public void borrar(Integer id) {
+		// TODO Auto-generated method stub
+		this.facturaRepo.eliminar(id);
+	}
+
+	@Override
+	public int borrarPorNumero(String numero) {
+		// TODO Auto-generated method stub
+		return this.facturaRepo.eliminarPorNumero(numero);
+		
+	}
+
+	@Override
+	public List<FacturaDTO> buscarFacturasDTO() {
+		// TODO Auto-generated method stub
+		return this.facturaRepo.seleccionarFacturasDTO();
 	}
 
 }

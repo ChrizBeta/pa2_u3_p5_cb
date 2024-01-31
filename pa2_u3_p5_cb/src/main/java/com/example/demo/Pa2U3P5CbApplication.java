@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.ventas.repository.modelo.Factura;
+import com.example.demo.ventas.repository.modelo.dto.FacturaDTO;
 import com.example.demo.ventas.service.IFacturaService;
 import com.example.demo.ventas.service.IHabitacionService;
 import com.example.demo.ventas.service.IHotelService;
@@ -32,31 +34,27 @@ public class Pa2U3P5CbApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		System.out.println(
-				"\n__________________________________________________ WHERE JOIN __________________________________________________ ");
+				"\n------------------------------------------- UPDATE -------------------------------------------");
 
-		List<Factura> lista = this.facturaService.buscarWhereJoin();
-		for (Factura f : lista) {
-			System.out.println(f);
-		}
 		
-		
-		System.out.println(
-				"\n__________________________________________________ INNER JOIN __________________________________________________ ");
+		int cantidad = this.facturaService.modificarFechas(LocalDate.of(2020, 1, 15), LocalDate.of(2024, 1, 20));
+		System.out.println("Cantidad de registros actualizados");
+		System.out.println(cantidad);
 
-		List<Factura> lista2 = this.facturaService.buscarInnerJoin();
-
-		for (Factura f : lista2) {
-			System.out.println(f.getNumero());
-		}
 		
 		System.out.println(
-				"\n__________________________________________________ FETCH JOIN __________________________________________________ ");
+				"\n------------------------------------------- DELETE -------------------------------------------");
+		int cantidad2 =this.facturaService.borrarPorNumero("001-001-001-001");
+		System.out.println("Cantidad de registros eliminados");
+		System.out.println(cantidad2);
 		
-		List<Factura> lista3 = this.facturaService.buscarFetchJoin();
-
-		for (Factura f : lista3) {
-			System.out.println(f.getNumero());
+		System.out.println(
+				"\n------------------------------------------- DTO -------------------------------------------");
+		List<FacturaDTO> listaDTO = this.facturaService.buscarFacturasDTO();
+		for (FacturaDTO fdto : listaDTO) {
+			System.out.println(fdto);
 		}
+		System.out.println("");
 
 
 	}
