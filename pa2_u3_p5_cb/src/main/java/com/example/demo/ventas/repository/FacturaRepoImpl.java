@@ -13,6 +13,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 @Repository
 @Transactional
@@ -33,8 +34,10 @@ public class FacturaRepoImpl implements IFacturaRepo {
 	}
 
 	@Override
+	
 	public void insertar(Factura factura) {
 		// TODO Auto-generated method stub
+		
 		this.entityManager.persist(factura);
 	}
 
