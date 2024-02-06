@@ -43,11 +43,13 @@ public class Pa2U3P5CbApplication implements CommandLineRunner {
 		fact.setNumero("001-002-003");
 		
 		Cliente cli = new Cliente();
-		cli.setApellido("Betancourt");
+		//cli.setApellido("Betancourt");
 		cli.setNombre("Christian");
 		
 		this.facturaService.guardar(fact,cli);
 		
+		
+		//this.facturaService.prueba();
 		
 	}
 
