@@ -177,5 +177,22 @@ public class FacturaRepoImpl implements IFacturaRepo {
 	}
 	
 	
+	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
+	public Factura buscar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
+	public List<Factura> seleccionarTodos() {
+		// TODO Auto-generated method stub
+		TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f from Factura f",Factura.class);
+		
+		
+		return myQuery.getResultList();
+	}
+	
 
 }

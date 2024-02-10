@@ -30,6 +30,10 @@ public interface IFacturaRepo {
 	
 	public List <FacturaDTO> seleccionarFacturasDTO();
 	
+	public Factura buscar ();
+	
+	public List <Factura> seleccionarTodos();
+	
 	
 	
 }

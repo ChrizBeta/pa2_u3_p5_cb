@@ -32,4 +32,24 @@ public class ClienteServiceImpl implements IClienteService {
 
 	}
 
+	@Override
+	@Transactional(value = TxType.SUPPORTS)
+	public void pruebaSupports() {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Este es un metodo Supports");
+		System.out.println("Prueba Supports: "+TransactionSynchronizationManager.isActualTransactionActive());
+		
+		
+	}
+
+	@Override
+	@Transactional(value = TxType.NEVER)
+	public void pruebaNever() {
+		// TODO Auto-generated method stub
+		System.out.println("Este es un metodo Never");
+		System.out.println("Prueba Never: "+TransactionSynchronizationManager.isActualTransactionActive());
+		
+	}
+
 }

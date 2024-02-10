@@ -36,21 +36,7 @@ public class Pa2U3P5CbApplication implements CommandLineRunner {
 		System.out.println(
 				"\n------------------------------------------- TRANSACCIONES -------------------------------------------");
 
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
-		Factura fact = new Factura();
-		fact.setCedula("1722781000001");
-		fact.setFecha(LocalDate.now());
-		fact.setNumero("001-002-003");
-		
-		Cliente cli = new Cliente();
-		//cli.setApellido("Betancourt");
-		cli.setNombre("Christian");
-		
-		this.facturaService.guardar(fact,cli);
-		
-		
-		//this.facturaService.prueba();
-		
+		this.facturaService.pruebaNever();
 	}
 
 }

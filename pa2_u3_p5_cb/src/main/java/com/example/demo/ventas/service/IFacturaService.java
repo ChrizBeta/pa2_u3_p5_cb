@@ -34,5 +34,9 @@ public interface IFacturaService {
 	
 	public void prueba();
 	
+	public void pruebaSupports();
+	public void pruebaNever();
+	
+	
 	
 }

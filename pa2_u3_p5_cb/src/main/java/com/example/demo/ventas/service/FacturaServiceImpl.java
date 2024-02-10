@@ -115,4 +115,22 @@ public class FacturaServiceImpl implements IFacturaService{
 		System.out.println("Prueba: "+TransactionSynchronizationManager.isActualTransactionActive());	
 	}
 
+	@Override
+	@Transactional(value = TxType.REQUIRED)
+	public void pruebaSupports() {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Prueba Factura: "+TransactionSynchronizationManager.isActualTransactionActive());
+		this.clienteService.pruebaSupports();
+	}
+
+	@Override
+	@Transactional(value = TxType.REQUIRES_NEW)
+	public void pruebaNever() {
+		// TODO Auto-generated method stub
+		System.out.println("Prueba Factura: "+TransactionSynchronizationManager.isActualTransactionActive());
+		this.clienteService.pruebaNever();
+		
+	}
+
 }
