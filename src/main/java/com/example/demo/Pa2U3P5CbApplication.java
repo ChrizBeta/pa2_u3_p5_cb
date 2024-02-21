@@ -7,24 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.example.demo.ventas.repository.modelo.Cliente;
 import com.example.demo.ventas.service.IClienteService;
-import com.example.demo.ventas.service.IFacturaService;
-import com.example.demo.ventas.service.IHabitacionService;
-import com.example.demo.ventas.service.IHotelService;
 
 @SpringBootApplication
+@EnableAsync
 public class Pa2U3P5CbApplication implements CommandLineRunner {
 
-	@Autowired
-	private IFacturaService facturaService;
 
-	@Autowired
-	private IHotelService hotelService;
-
-	@Autowired
-	private IHabitacionService habitacionService;
 
 	@Autowired
 	private IClienteService clienteService;
@@ -70,16 +62,17 @@ public class Pa2U3P5CbApplication implements CommandLineRunner {
 		
 		
 		System.out.println("Nombre de Hilo: " + Thread.currentThread().getName());
-		long tiempoInicial = System.currentTimeMillis();
 		List<Cliente> listaCliente = new ArrayList<>();
+		long tiempoInicial = System.currentTimeMillis();		
 		for (int i = 1; i <= 100; i++) {
 			Cliente cliente = new Cliente();
-			cliente.setNombre("CN " + i);
-			cliente.setApellido("CA " + i);
+			cliente.setNombre("C " + i);
+			cliente.setApellido("B " + i);
 			listaCliente.add(cliente);
 
 		}
 		listaCliente.parallelStream().forEach(cliente -> this.clienteService.guardar(cliente));
+		//listaCliente.stream().forEach(cliente -> this.clienteService.guardar(cliente));
 		long tiempoFinal = System.currentTimeMillis();
 		long tiempoTotal = (tiempoFinal - tiempoInicial) / 1000;
 		System.out.println("Tiempo transcurrido en segundos " + tiempoTotal);

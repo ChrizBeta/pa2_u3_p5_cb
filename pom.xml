@@ -8,7 +8,7 @@
 		<version>3.2.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.uce.edu.ec</groupId>
 	<artifactId>pa2_u3_p5_cb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pa2_u3_p5_cb</name>
